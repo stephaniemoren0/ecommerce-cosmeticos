@@ -1,0 +1,40 @@
+.contenedorInformacion {
+    margin: 20px;
+    width: 500px;
+    height: 500px;
+}
+
+.trans:hover {
+    opacity: 1;
+    transition: 1s;
+}
+
+.contenidoPrincipal {
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+h1 {
+    font-size: 21px;
+}
+
+p {
+    font-size: 14px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+.imagenContenedor {
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    margin: 20px;
+    position: relative;
+}
