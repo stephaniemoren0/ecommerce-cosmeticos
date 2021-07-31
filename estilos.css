@@ -12,9 +12,10 @@
 .contenidoPrincipal {
     border-radius: 5px;
     padding: 20px;
-    display: flex;
+    display: block;
     align-items: center;
-    position: relative;
+    width: 500px;
+    height: 500px;
 }
 
 h1 {

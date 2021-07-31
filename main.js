@@ -17,17 +17,22 @@ cosmeticos.push(new cosmetico(6, "Paleta Para Rostro Studio Look", "5 productos,
 cosmeticos.push(new cosmetico(7, "Base de Maquillaje Studio Look Mate de Alta Cobertura", "Base de maquillaje con efecto mate de alta cobertura y larga duración. fsp 20 + uva. 30g.", "Espresso", 209.90, "https://cyzone.tiendabelcorp.com/cdn-cgi/image/width=1200,fit=contain,f=auto/https://belc-bigdata-mdm-images-prd.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200100849_fotofondoblanco.jpg"));
 
 
+var seccionContenedor = document.getElementById("laFuncion")
+
 for (const cosmetico of cosmeticos) {
-    let divCosmetico = document.createElement("div");
-    divCosmetico.classList.add("card");
-    divCosmetico.innerHTML = `<div class="card contenedorInformacion img-fluid row"> 
-    <img src=${cosmetico.imagen} alt="labial" class="bd-placeholder-img card-img-top imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid ">
-    <div class="card-body ">
-    <h1 class="card-title"> ${cosmetico.nombre} <h1> 
-    <p class="card-text">${cosmetico.descripcion}</p>
-    <p class="card-text">${cosmetico.color}</p>
-        <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> <button> agregar </button> 
+
+    seccionContenedor.innerHTML += `
+    <div class="card-group col-4">
+        <div class="card col-md contenedorPrincipal">
+            <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+            <div class="card-body">
+                <h1 class="card-title">${cosmetico.nombre}</h1>
+                <p class="card-text">${cosmetico.descripcion}</p>
+            <p class="card-text">${cosmetico.color}</p>
+            <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> <button> agregar </button> 
+            </div>
         </div>
-        </div>`;
-    document.body.appendChild(divCosmetico);
+    </div>
+    <br>
+    `
 }
