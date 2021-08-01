@@ -39,3 +39,8 @@ h2 {
     margin: 20px;
     position: relative;
 }
+
+.contenedorArriba {
+    width: 100%;
+    height: 60px;
+}
