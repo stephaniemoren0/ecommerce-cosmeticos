@@ -1,3 +1,1 @@
-var seccionBases = document.getElementById("cateBases")
-
-cosmeticosCategoria(5, seccionBases);
+cosmeticosCategoria(5);

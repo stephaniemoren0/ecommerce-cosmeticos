@@ -39,7 +39,7 @@
                         </li>
                     </ul>
                     <form class="d-flex" id="miBusqueda">
-                        <input class="form-control me-2" type="search" placeholder="Estoy buscando..." aria-label="Search">
+                        <input id="filtrado" onkeyup="buscarProducto(5)" class="form-control me-2" type="search" placeholder="Estoy buscando..." aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                     </form>
                 </div>
@@ -47,7 +47,7 @@
         </nav>
     </header>
     <div class="contenedorArriba"></div>
-    <div class="container-fluid row justify-content-md-center" id="cateBases"></div>
+    <div class="container-fluid row justify-content-md-center" id="laFuncion"></div>
     <script src="../js/Cosmetico.js"></script>
     <script src="../js/utilcosmetico.js"></script>
     <script src="../js/basesMain.js"></script>
