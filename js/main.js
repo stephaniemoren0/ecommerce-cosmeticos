@@ -44,7 +44,7 @@ function buscarProducto() {
         let nombreCosmetico = cosmetico.nombre.toLowerCase()
         if (nombreCosmetico.includes(input)) {
             conte += `
-            <div class="card-group col-4">
+            <div class="card-group col-auto col-4">
                 <div class="card col-md contenedorPrincipal">
                     <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
                     <div class="card-body">
