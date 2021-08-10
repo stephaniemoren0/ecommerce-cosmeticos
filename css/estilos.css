@@ -18,6 +18,10 @@
     height: 500px;
 }
 
+.btnColor {
+    background: pink;
+}
+
 h1 {
     font-size: 21px;
 }

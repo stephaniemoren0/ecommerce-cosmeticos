@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <title>Proyecto Ecommerce</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/estilos.css">
 </head>
 
@@ -38,9 +38,25 @@
                             <a class="nav-link active" aria-current="page" href="otros.html">Otros</a>
                         </li>
                     </ul>
-                    <form class="d-flex" id="miBusqueda">
-                        <input id="filtrado" onkeyup="buscarProducto(3)" class="form-control me-2" type="search" placeholder="Estoy buscando..." aria-label="Search">
-                    </form>
+                    <hr>
+                    <div class="col-4">
+                        <form class="d-flex" id="miBusqueda">
+                            <input id="filtrado" onkeyup="buscarProducto(3)" class="form-control me-2" type="search" placeholder="Estoy buscando..." aria-label="Search">
+                        </form>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btnColor dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>

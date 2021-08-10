@@ -1,8 +1,6 @@
-var seccionContenedor = document.getElementById("laFuncion")
-
 for (const cosmetico of cosmeticos) {
-    seccionContenedor.innerHTML += `
-    <div>
+    $("#laFuncion").append(`
+    <div class="col-4">
         <div class="card">
     <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
             <div class="card-body">
@@ -15,7 +13,7 @@ for (const cosmetico of cosmeticos) {
         </div>
     </div>
     <br>
-    `
+    `);
 }
 
 
@@ -27,7 +25,6 @@ busqueda.onsubmit = function(event) {
     event.preventDefault();
     console.dir(this);
     console.dir(this.children);
-    let miCampoBusqueda = event.target.children[0].value;
     buscarProducto();
 
 }
@@ -39,31 +36,29 @@ function validarBusqueda(event) {
 
 //buscador de productos
 function buscarProducto() {
-    let filtrado = document.getElementById("filtrado");
-    let input = filtrado.value.toLowerCase();
-    seccionContenedor.innerHTML = ``;
-    let conte = ``;
+    let input = $("#filtrado").val().toLowerCase();
+    $("#laFuncion").empty();
     for (const cosmetico of cosmeticos) {
         let nombreCosmetico = cosmetico.nombre.toLowerCase()
         if (nombreCosmetico.includes(input)) {
-            conte += `
-            <div class="card-group col-auto col-4">
-                <div class="card col-md contenedorPrincipal">
-                    <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
-                    <div class="card-body">
-                        <h1 class="card-title">${cosmetico.nombre}</h1>
-                        <p class="card-text">${cosmetico.descripcion}</p>
-                    <p class="card-text">${cosmetico.color}</p>
-                    <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> <button> agregar </button> 
-                    </div>
+            $("#laFuncion").append(`<div class=" col-lg-4">
+            <div class="card">
+        <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+                <div class="card-body">
+                <h5 class="card-title">${cosmetico.nombre}</h5>
+                <p class="card-text">${cosmetico.descripcion}</p>
+                <p class="card-text">${cosmetico.color}</p>
+                <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
+                <a href="#" class="btn btn-primary">Comprar</a>
                 </div>
             </div>
-            <br>
-            `
+        </div>
+        <br>
+        `);
         }
     }
-    if (conte === "") {
-        conte = `
+    if ($("#laFuncion").is(':empty')) {
+        $("#laFuncion").append(`
         <div class="card-group col-4">
             <div class="card col-md contenedorPrincipal">
                 <img src="https://www.tuenlinea.com/wp-content/uploads/2018/08/Los-gatitos-m%C3%A1s-tiernos-que-derretir%C3%A1n-tu-coraz%C3%B3n.jpg" alt="gato">
@@ -71,7 +66,6 @@ function buscarProducto() {
             </div>
         </div>
         <br>
-        `
+        `);
     }
-    seccionContenedor.innerHTML = conte;
 }

@@ -20,7 +20,7 @@
                 <a class="navbar-brand" href="index.html">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-              </button>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
@@ -39,9 +39,26 @@
                             <a class="nav-link active" aria-current="page" href="html/otros.html">Otros</a>
                         </li>
                     </ul>
-                    <form class="d-flex" id="miBusqueda">
-                        <input id="filtrado" onkeyup="buscarProducto()" class="form-control me-2" type="search" placeholder="Estoy buscando..." aria-label="Search">
-                    </form>
+                    <hr>
+                    <div class="col-4">
+                        <form class="d-flex" id="miBusqueda">
+                            <input id="filtrado" onkeyup="buscarProducto()" class="form-control me-2" type="search" placeholder="Estoy buscando..." aria-label="Search">
+                        </form>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btnColor dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Dropdown button
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -76,7 +93,7 @@
         </div>
     </main>
 
-    <div class="container-fluid row col-lg-4 " id="laFuncion">
+    <div class="container-fluid row justify-content-md-center" id="laFuncion">
 
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
