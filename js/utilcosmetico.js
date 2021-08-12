@@ -1,8 +1,7 @@
 function cosmeticosCategoria(categoria) {
-    for (const cosmetico of cosmeticos) {
-        let cat = cosmetico.categoria;
-        if (cat == categoria) {
-            $("#laFuncion").append(`<div class=" col-lg-4">
+    const cosmeticosFiltados = cosmeticos.filter(cosmetico => cosmetico.categoria == categoria)
+    for (const cosmetico of cosmeticosFiltados) {
+        $("#laFuncion").append(`<div class=" col-lg-4">
                 <div class="card">
             <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
                     <div class="card-body">
@@ -10,15 +9,16 @@ function cosmeticosCategoria(categoria) {
                     <p class="card-text">${cosmetico.descripcion}</p>
                     <p class="card-text">${cosmetico.color}</p>
                     <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
-                    <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href="#" id="${cosmetico.id}" class="btn btn-primary btn-comprar">Comprar</a>
                     </div>
                 </div>
             </div>
             <br>
             `)
 
-        }
+
     }
+    clickBotones();
 }
 
 function buscarProducto(categoria) {
@@ -56,4 +56,43 @@ function buscarProducto(categoria) {
         `);
     }
 
+}
+
+function clickBotones() {
+    const botones = $('.btn-comprar');
+    for (const boton of botones) {
+        boton.onclick = comprar;
+    }
+}
+
+function comprar(e) {
+    e.preventDefault();
+    const cosmeticoId = e.target.id;
+    const agregado = cosmeticos.find(cosmetico => cosmetico.id == cosmeticoId);
+    productoCarrito.push(agregado);
+    pintarCarritoUI(productoCarrito);
+}
+
+
+function eliminarCosmetico(e) {
+    e.preventDefault();
+    let posicion = productoCarrito.findIndex(cosmeticos => cosmeticos.id == e.target.id);
+    delete productoCarrito[posicion];
+    productoCarrito.splice(posicion, 1);
+    pintarCarritoUI(productoCarrito);
+    localStorage.setItem("PINTARCARRITO", JSON.localStorage(cosmeticos));
+}
+
+
+function pintarCarritoUI(cosmeticos) {
+    $("#notificacionCarrito").html(cosmeticos.length);
+    $("#productosCarrito").empty();
+    for (const cosmetico of cosmeticos) {
+        $("#productosCarrito").append(`<img src="${cosmetico.imagen}" class="imgCar" alt=""><p>${cosmetico.nombre} <span class="badge badge-pill badge-dark">$ ${cosmetico.precio}</span><a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a>
+        </p>`);
+    }
+    $('.btn-eliminar').on('click', eliminarCosmetico);
+    $(".dropdown-menu").click(function(e) {
+        e.stopPropagation();
+    });
 }

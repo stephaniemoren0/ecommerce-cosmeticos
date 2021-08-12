@@ -8,7 +8,7 @@ for (const cosmetico of cosmeticos) {
             <p class="card-text">${cosmetico.descripcion}</p>
             <p class="card-text">${cosmetico.color}</p>
             <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
-            <a href="#" class="btn btn-primary">Comprar</a>
+            <a href="#" id="${cosmetico.id}" class="btn btn-primary btn-comprar">Comprar</a>
             </div>
         </div>
     </div>
@@ -68,4 +68,49 @@ function buscarProducto() {
         <br>
         `);
     }
+}
+
+$(document).ready(function() {
+    const botones = $('.btn-comprar');
+    for (const boton of botones) {
+        boton.onclick = comprar;
+    }
+});
+
+window.addEventListener('load', () => {
+    $("#cargando").remove();
+})
+
+
+function comprar(e) {
+    e.preventDefault();
+    const cosmeticoId = e.target.id;
+    const agregado = cosmeticos.find(cosmetico => cosmetico.id == cosmeticoId);
+    productoCarrito.push(agregado);
+    //guardar en el storage
+    localStorage.setItem("comprar", JSON.stringify(productoCarrito));
+    pintarCarritoUI(productoCarrito);
+}
+
+
+function eliminarCosmetico(e) {
+    e.preventDefault();
+    let posicion = productoCarrito.findIndex(cosmeticos => cosmeticos.id == e.target.id);
+    delete productoCarrito[posicion];
+    productoCarrito.splice(posicion, 1);
+    pintarCarritoUI(productoCarrito);
+    localStorage.setItem("PINTARCARRITO", JSON.localStorage(productoCarrito));
+}
+
+function pintarCarritoUI(cosmeticos) {
+    $("#notificacionCarrito").html(cosmeticos.length);
+    $("#productosCarrito").empty();
+    for (const cosmetico of cosmeticos) {
+        $("#productosCarrito").append(`<img src="${cosmetico.imagen}" class="imgCar" alt=""><p>${cosmetico.nombre} <span class="badge badge-pill badge-dark">$ ${cosmetico.precio}</span><a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a>
+        </p>`);
+    }
+    $('.btn-eliminar').on('click', eliminarCosmetico);
+    $(".dropdown-menu").click(function(e) {
+        e.stopPropagation();
+    });
 }

@@ -49,12 +49,10 @@
                     <div>
                         <div class="dropdown">
                             <button class="btn btnColor dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              Dropdown button
+                                🛒 Carrito <span id="notificacionCarrito" class="badge badge-dark">0</span>
                             </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                            <div id="productosCarrito" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
                             </div>
                         </div>
                     </div>
@@ -92,6 +90,11 @@
             </div>
         </div>
     </main>
+    <br>
+    <button id="cargando" class="btn btnCargando container-fluid" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Cargando...
+    </button>
 
     <div class="container-fluid row justify-content-md-center" id="laFuncion">
 
