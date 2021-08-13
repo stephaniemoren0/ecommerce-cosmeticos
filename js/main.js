@@ -84,8 +84,15 @@ $(document).ready(function() {
     }
 });
 
+
+
 window.addEventListener('load', () => {
-    $("#cargando").remove();
+    $("#cargando").fadeIn();
+    $("#cargando").fadeOut(4000);
+    $("#laFuncion").hide();
+    $("#laFuncion").fadeIn(4000);
+
+
 })
 
 
