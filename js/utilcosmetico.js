@@ -21,6 +21,16 @@ function cosmeticosCategoria(categoria) {
     clickBotones();
 }
 
+$(document).ready(function() {
+    if ("comprar" in localStorage) {
+        const listaCompra = JSON.parse(localStorage.getItem("comprar"));
+        for (const compra of listaCompra) {
+            productoCarrito.push(compra);
+        }
+        pintarCarritoUI(productoCarrito);
+    }
+});
+
 function buscarProducto(categoria) {
     let input = $("#filtrado").val().toLowerCase();
     $("#laFuncion").empty();
@@ -70,6 +80,8 @@ function comprar(e) {
     const cosmeticoId = e.target.id;
     const agregado = cosmeticos.find(cosmetico => cosmetico.id == cosmeticoId);
     productoCarrito.push(agregado);
+    //guardar en el storage
+    localStorage.setItem("comprar", JSON.stringify(productoCarrito));
     pintarCarritoUI(productoCarrito);
 }
 
@@ -80,7 +92,7 @@ function eliminarCosmetico(e) {
     delete productoCarrito[posicion];
     productoCarrito.splice(posicion, 1);
     pintarCarritoUI(productoCarrito);
-    localStorage.setItem("PINTARCARRITO", JSON.localStorage(cosmeticos));
+    localStorage.setItem("comprar", JSON.stringify(productoCarrito));
 }
 
 

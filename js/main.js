@@ -75,6 +75,13 @@ $(document).ready(function() {
     for (const boton of botones) {
         boton.onclick = comprar;
     }
+    if ("comprar" in localStorage) {
+        const listaCompra = JSON.parse(localStorage.getItem("comprar"));
+        for (const compra of listaCompra) {
+            productoCarrito.push(compra);
+        }
+        pintarCarritoUI(productoCarrito);
+    }
 });
 
 window.addEventListener('load', () => {
@@ -99,7 +106,7 @@ function eliminarCosmetico(e) {
     delete productoCarrito[posicion];
     productoCarrito.splice(posicion, 1);
     pintarCarritoUI(productoCarrito);
-    localStorage.setItem("PINTARCARRITO", JSON.localStorage(productoCarrito));
+    localStorage.setItem("comprar", JSON.stringify(productoCarrito));
 }
 
 function pintarCarritoUI(cosmeticos) {
