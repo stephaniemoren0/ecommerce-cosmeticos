@@ -82,9 +82,41 @@ $(document).ready(function() {
         }
         pintarCarritoUI(productoCarrito);
     }
+    animacionEnvios();
 });
 
+function animacionEnvios() {
+    primero();
 
+    function primero() {
+        $(".izquierda").animate({
+            "left": "-=300px"
+        }, 12000, function() {
+            $(".izquierda").css("left", "2000px");
+        });
+
+        $(".derecha").animate({
+            "left": "-500px"
+        }, 12000, function() {
+            segundo();
+        });
+    };
+
+    function segundo() {
+        $(".derecha").animate({
+            "left": "-=300px"
+        }, 12000, function() {
+            $(".derecha").css("left", "2000px");
+        });
+
+        $(".izquierda").animate({
+            "left": "-500px"
+        }, 12000, function() {
+            primero();
+        });
+
+    };
+}
 
 window.addEventListener('load', () => {
     $("#cargando").fadeIn();

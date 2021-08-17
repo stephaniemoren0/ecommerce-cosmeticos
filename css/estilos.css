@@ -63,3 +63,36 @@ h2 {
     color: rgb(66, 66, 66);
     background: pink;
 }
+
+.contenedorEnvios {
+    height: 45px;
+    background: black;
+    position: relative;
+    overflow: hidden;
+}
+
+.izquierda {
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    left: -400px;
+    display: inline-block
+}
+
+.derecha {
+    width: 500px;
+    height: 100px;
+    position: absolute;
+    left: 800px;
+    display: inline-block;
+}
+
+.textoEnvios {
+    color: pink;
+    font-size: 25px;
+}
+
+.textoEnvio {
+    color: rgb(250, 109, 132);
+    font-size: 28px;
+}
