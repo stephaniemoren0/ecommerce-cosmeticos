@@ -21,15 +21,7 @@ function cosmeticosCategoria(categoria) {
     clickBotones();
 }
 
-$(document).ready(function() {
-    if ("comprar" in localStorage) {
-        const listaCompra = JSON.parse(localStorage.getItem("comprar"));
-        for (const compra of listaCompra) {
-            productoCarrito.push(compra);
-        }
-        pintarCarritoUI(productoCarrito);
-    }
-});
+
 
 function buscarProducto(categoria) {
     let input = $("#filtrado").val().toLowerCase();
@@ -46,14 +38,16 @@ function buscarProducto(categoria) {
                 <p class="card-text">${cosmetico.descripcion}</p>
                 <p class="card-text">${cosmetico.color}</p>
                 <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
-                <a href="#" class="btn btn-primary">Comprar</a>
+                <a href="#" id="${cosmetico.id}" class="btn btn-primary btn-comprar">Comprar</a>
                 </div>
             </div>
         </div>
         <br>
         `);
         }
+
     }
+    clickBotones();
     if ($("#laFuncion").is(':empty')) {
         $("#laFuncion").append(`
         <div class="card-group col-4">
@@ -107,4 +101,18 @@ function pintarCarritoUI(cosmeticos) {
     $(".dropdown-menu").click(function(e) {
         e.stopPropagation();
     });
+}
+
+function llamarCosmetico(categoria) {
+    $.get(urlget, function(respuesta, estado) {
+        if (estado == "success") {
+            let cosme = respuesta;
+            for (const dato of cosme) {
+                cosmeticos.push(new Cosmetico(dato.id, dato.categoria, dato.nombre, dato.descripcion, dato.color, dato.precio, dato.imagen));
+            }
+
+        }
+        cosmeticosCategoria(categoria);
+        botonComprar();
+    })
 }

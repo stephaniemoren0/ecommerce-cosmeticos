@@ -1,5 +1,6 @@
-for (const cosmetico of cosmeticos) {
-    $("#laFuncion").append(`
+function pintarProductosUI() {
+    for (const cosmetico of cosmeticos) {
+        $("#laFuncion").append(`
     <div class="col-4">
         <div class="card">
     <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
@@ -14,7 +15,10 @@ for (const cosmetico of cosmeticos) {
     </div>
     <br>
     `);
+    }
 }
+
+
 
 
 
@@ -49,7 +53,7 @@ function buscarProducto() {
                 <p class="card-text">${cosmetico.descripcion}</p>
                 <p class="card-text">${cosmetico.color}</p>
                 <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
-                <a href="#" class="btn btn-primary">Comprar</a>
+                <a href="#" id="${cosmetico.id}" class="btn btn-primary btn-comprar">Comprar</a>
                 </div>
             </div>
         </div>
@@ -57,6 +61,7 @@ function buscarProducto() {
         `);
         }
     }
+    botonComprar();
     if ($("#laFuncion").is(':empty')) {
         $("#laFuncion").append(`
         <div class="card-group col-4">
@@ -70,11 +75,10 @@ function buscarProducto() {
     }
 }
 
+
+
 $(document).ready(function() {
-    const botones = $('.btn-comprar');
-    for (const boton of botones) {
-        boton.onclick = comprar;
-    }
+    llamarCosmetico();
     if ("comprar" in localStorage) {
         const listaCompra = JSON.parse(localStorage.getItem("comprar"));
         for (const compra of listaCompra) {
@@ -84,6 +88,13 @@ $(document).ready(function() {
     }
     animacionEnvios();
 });
+
+function botonComprar() {
+    const botones = $('.btn-comprar');
+    for (const boton of botones) {
+        boton.onclick = comprar;
+    }
+}
 
 function animacionEnvios() {
     primero();
@@ -159,4 +170,18 @@ function pintarCarritoUI(cosmeticos) {
     $(".dropdown-menu").click(function(e) {
         e.stopPropagation();
     });
+}
+
+function llamarCosmetico() {
+    $.get(urlget, function(respuesta, estado) {
+        if (estado == "success") {
+            let cosme = respuesta;
+            for (const dato of cosme) {
+                cosmeticos.push(new Cosmetico(dato.id, dato.categoria, dato.nombre, dato.descripcion, dato.color, dato.precio, dato.imagen));
+            }
+
+        }
+        pintarProductosUI();
+        botonComprar();
+    })
 }
