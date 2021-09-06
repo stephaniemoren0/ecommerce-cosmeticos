@@ -1,5 +1,5 @@
 class Cosmetico {
-    constructor(id, categoria, nombre, descripcion, color, precio, imagen) {
+    constructor(id, categoria, nombre, descripcion, color, precio, imagen, cantidad) {
         this.id = parseInt(id);
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -7,7 +7,12 @@ class Cosmetico {
         this.color = color;
         this.precio = parseFloat(precio);
         this.categoria = parseInt(categoria);
+        this.cantidad= parseInt(cantidad);
     }
+    agregarCantidad(valor){
+        this.cantidad += valor;
+    }
+    
 }
 
 //Cosntantes----------------------------------------------------------------
@@ -18,4 +23,4 @@ const cosmeticos = [];
 
 const productoCarrito = [];
 
-const urlget = "http://localhost:3000/cosmeticos"
+const urlget = "https://cosmeticosv1.herokuapp.com/v1/api/cosmetico"

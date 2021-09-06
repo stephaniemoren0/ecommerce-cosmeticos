@@ -8,8 +8,9 @@ function pintarProductosUI() {
             <h5 class="card-title">${cosmetico.nombre}</h5>
             <p class="card-text">${cosmetico.descripcion}</p>
             <p class="card-text">${cosmetico.color}</p>
-            <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
-            <a href="#" id="${cosmetico.id}" class="btn btn-primary btn-comprar">Comprar</a>
+            <h2  class="card-title"> Precio $ ${cosmetico.precio} </h2> 
+            <a href="html/producto.html" id="${cosmetico.id}" class="btn btn-color btn-mostrar btn-primary">Detalles</a>
+            <a href="#" id="${cosmetico.id}" class="btn btn-color btn-primary btn-comprar">Comprar</a>
             </div>
         </div>
     </div>
@@ -53,7 +54,8 @@ function buscarProducto() {
                 <p class="card-text">${cosmetico.descripcion}</p>
                 <p class="card-text">${cosmetico.color}</p>
                 <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
-                <a href="#" id="${cosmetico.id}" class="btn btn-primary btn-comprar">Comprar</a>
+                <a href="html/producto.html" id="${cosmetico.id}" class="btn btn-color btn-mostrar btn-primary">Detalles</a>
+                <a href="#" id="${cosmetico.id}" class="btn btn-color btn-primary btn-comprar">Comprar</a>
                 </div>
             </div>
         </div>
@@ -61,6 +63,7 @@ function buscarProducto() {
         `);
         }
     }
+    botonMostrar();
     botonComprar();
     if ($("#laFuncion").is(':empty')) {
         $("#laFuncion").append(`
@@ -89,12 +92,22 @@ $(document).ready(function() {
     animacionEnvios();
 });
 
+
+
 function botonComprar() {
     const botones = $('.btn-comprar');
     for (const boton of botones) {
         boton.onclick = comprar;
     }
 }
+
+function botonMostrar(){
+    const botones = $('.btn-mostrar');
+    for (const boton of botones){
+        boton.onclick= obtener;
+    }
+}
+
 
 function animacionEnvios() {
     primero();
@@ -138,6 +151,16 @@ window.addEventListener('load', () => {
 
 })
 
+function obtener(e){
+    const cosmeticoId = e.target.id;
+    const agregado = cosmeticos.find(cosmetico => cosmetico.id == cosmeticoId);
+    //guardar en el storage
+    localStorage.setItem('cosmetico',JSON.stringify (agregado));
+    
+
+}
+
+
 
 function comprar(e) {
     e.preventDefault();
@@ -163,13 +186,28 @@ function pintarCarritoUI(cosmeticos) {
     $("#notificacionCarrito").html(cosmeticos.length);
     $("#productosCarrito").empty();
     for (const cosmetico of cosmeticos) {
-        $("#productosCarrito").append(`<img src="${cosmetico.imagen}" class="imgCar" alt=""><p>${cosmetico.nombre} <span class="badge badge-pill badge-dark">$ ${cosmetico.precio}</span><a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a>
-        </p>`);
+        $("#productosCarrito").append(`<div class="container-fluid">
+        <img src="${cosmetico.imagen}" class="imgCar" alt="">
+        <p>${cosmetico.nombre} 
+        <span class="badge badge-pill badge-dark">$ ${cosmetico.precio}</span>
+        <span class="badge badge-pill badge-dark"> ${cosmetico.cantidad}</span>
+        <span class="badge badge-pill badge-dark">$ ${subtotal(cosmetico)}</span>
+        <a href="" id="${cosmetico.id}" class="btn btn-secondary btn-agregar">+</a>
+        <a href="" id="${cosmetico.id}" class="btn btn-secondary btn-quitar">-</a>
+        <a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a></p></div>`);
     }
+    $("#productosCarrito").append(`<div class="container-fluid"><a href="carrito.html" class="btn btn-primary">ver carrito</a></div>`);
+    $('btn-agregar').click(sumaCantidad);
+    $('btn-quitar').click(quitarCantidad);
     $('.btn-eliminar').on('click', eliminarCosmetico);
     $(".dropdown-menu").click(function(e) {
         e.stopPropagation();
     });
+    
+}
+
+function subtotal(cosmetico){
+    return cosmetico.cantidad * cosmetico.precio;
 }
 
 function llamarCosmetico() {
@@ -177,11 +215,32 @@ function llamarCosmetico() {
         if (estado == "success") {
             let cosme = respuesta;
             for (const dato of cosme) {
-                cosmeticos.push(new Cosmetico(dato.id, dato.categoria, dato.nombre, dato.descripcion, dato.color, dato.precio, dato.imagen));
+                cosmeticos.push(new Cosmetico(dato.id, dato.categoria, dato.nombre, dato.descripcion, dato.color, dato.precio, dato.imagen, 0));
             }
 
         }
         pintarProductosUI();
-        botonComprar();
+        botonComprar(); 
+        botonMostrar();
     })
+}
+
+function quitarCantidad(){
+    let cosmetico = productoCarrito.find(p => p.id == this.id);
+    if (cosmetico.cantidad > 1){
+        cosmetico.agregarCantidad(-1);
+        let registroUI = $(this).parent().children();
+        registroUI[1].innerHTML= cosmetico.cantidad;
+        registroUI[2].innerHTML= cosmetico.subtotal();
+        localStorage.setItem("comprar", JSON.stringify(productoCarrito))
+    }
+}
+
+function sumaCantidad(){
+    let cosmetico = productoCarrito.find(p => p.id == this.id);
+    cosmetico.agregarCantidad(1);
+    let registroUI = $(this).parent().children();
+    registroUI[1].innerHTML= cosmetico.cantidad;
+    registroUI[2].innerHTML= cosmetico.subtotal();
+    localStorage.setItem("comprar", JSON.stringify(productoCarrito))
 }
