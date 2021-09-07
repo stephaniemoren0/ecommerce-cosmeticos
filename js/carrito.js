@@ -6,6 +6,8 @@ $(document).ready(function() {
         }
     }
     carrito();
+    $("#limpiar").click(borrar);
+
 });
 
 function carrito(){
@@ -109,4 +111,8 @@ function sumaCantidad(e){
     localStorage.setItem("comprar", JSON.stringify(productoCarrito))
     carrito();
 
+}
+
+function borrar(e){
+    localStorage.setItem("comprar", JSON.stringify(""))
 }

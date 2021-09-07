@@ -20,6 +20,11 @@
     height: 500px;
 }
 
+.color{
+    text-decoration: none;
+    color: black;
+}
+
 .trans:hover {
     opacity: 1;
     transition: 1s;
@@ -96,6 +101,10 @@ width: 50px;
     display: inline-flexbox;
     border: 1px solid rgba(0,0,0,0.19);
 border-radius: 5px;
+}
+
+.textoNotificacion{
+    text-align: center;
 }
 
 .textoDentro{
@@ -220,3 +229,11 @@ column-rule: 1px solid transparent;
     background-color: rgba(0, 0, 0, 0.151);
 }
 
+.color--whatsapp {
+    color: #00bb2d; }
+
+.color--facebook {
+    color: #3b5998; }
+
+.color--instagram {
+    color: #833AB4; }

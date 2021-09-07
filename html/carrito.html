@@ -1,11 +1,14 @@
 <html lang="en">
 <head>
+    <link rel="shortcut icon" type="image/png" href="../L (1).png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Ecommerce</title>
+    <title>Carrito</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/estilos.css">
+    <meta name="keywords" content="labiales, labial, mate, exfoliante, limpieza, facial, crema, ojos, sombras, sombra, esmalte, belleza, rubor, bullet, brillo, glitter">
+    <meta name="description" content="Los mejores es maquillaje a precios economicos">
 </head>
 <body>
     <header>
@@ -81,7 +84,25 @@
         <span id="totalIva"></span>
         </li>
         </ul>
-        <button type="button" class="btn btn-primary btn-block waves-effect waves-light">Confirmar Pedido</button>
+
+        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">
+            Confirmar Pedido
+        </button>
+        
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                <a href="../index.html" type="button" id="limpiar" class="color" >&times;</a>
+                </div>
+                <div class="modal-body textoNotificacion">
+                ¡Tu Compra Fue Exitosa!
+                </div>
+
+                
+            </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
