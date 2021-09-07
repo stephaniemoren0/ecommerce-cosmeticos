@@ -65,11 +65,35 @@ h2 {
     height: 60px;
 }
 
+.carrito{
+    width: 170px;
+}
+
 .imagenCarrito{
     width: auto;
     height: auto;
 }
 
+.contenedorCarrito{
+    display: inline-block;
+    width: 150px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.contenedorMostrar{
+    display: inline-block;
+    margin-top: 80px;
+}
+
+.contenedorArticulos{
+    display: inline-;
+    margin-left: 20px;
+}
+
+.contenedorPago{
+    display: inline;
+}
 
 
 .imgCar {
@@ -115,6 +139,24 @@ h2 {
     font-size: 28px;
 }
 
+.contenedorProducto{
+    position: center;
+    display: inline-block;
+    margin: 100px;
+}
+
+.contenedorDetalles{
+    margin: 20px;
+}
+
+.estiloImagen{
+    -webkit-box-shadow: 2px 5px 16px 0px #0000000a, 2px 2px 50px 0px rgba(0, 0, 0, 0.027); 
+    box-shadow: 2px 5px 16px 0px #0000001c, 2px 2px 50px 0px rgba(0, 0, 0, 0.027);
+    border-radius: 10px;
+    }
+    body#tinymce {
+    background: #000000
+    }
 
 
 .contenedor {

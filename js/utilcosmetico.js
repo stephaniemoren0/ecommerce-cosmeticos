@@ -2,15 +2,13 @@ function cosmeticosCategoria(categoria) {
     const cosmeticosFiltados = cosmeticos.filter(cosmetico => cosmetico.categoria == categoria)
     for (const cosmetico of cosmeticosFiltados) {
         $("#laFuncion").append(`<div class=" col-lg-4">
-                <div class="card">
-            <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+                <div>
+            <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor estiloImagen bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+            <hr />
                     <div class="card-body">
                     <h5 class="card-title">${cosmetico.nombre}</h5>
-                    <p class="card-text">${cosmetico.descripcion}</p>
-                    <p class="card-text">${cosmetico.color}</p>
                     <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
                     <a href="producto.html" id="${cosmetico.id}" class="btn btn-color btn-mostrar btn-primary">Detalles</a>
-                    <a href="#" id="${cosmetico.id}" class="btn btn-color btn-primary btn-comprar">Comprar</a>
                     </div>
                 </div>
             </div>
@@ -33,15 +31,13 @@ function buscarProducto(categoria) {
         let cat = cosmetico.categoria;
         if (nombreCosmetico.includes(input) && cat == categoria) {
             $("#laFuncion").append(`<div class=" col-lg-4">
-            <div class="card">
-        <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+            <div>
+        <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor estiloImagen bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+        <hr />
                 <div class="card-body">
                 <h5 class="card-title">${cosmetico.nombre}</h5>
-                <p class="card-text">${cosmetico.descripcion}</p>
-                <p class="card-text">${cosmetico.color}</p>
                 <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
                 <a href="producto.html" id="${cosmetico.id}" class="btn btn-color btn-mostrar btn-primary">Detalles</a>
-                <a href="#" id="${cosmetico.id}" class="btn btn-color btn-primary btn-comprar">Comprar</a>
                 </div>
             </div>
         </div>
@@ -93,6 +89,7 @@ function comprar(e) {
     e.preventDefault();
     const cosmeticoId = e.target.id;
     const agregado = cosmeticos.find(cosmetico => cosmetico.id == cosmeticoId);
+    agregado.cantidad += 1;
     productoCarrito.push(agregado);
     //guardar en el storage
     localStorage.setItem("comprar", JSON.stringify(productoCarrito));
@@ -107,6 +104,9 @@ function eliminarCosmetico(e) {
     productoCarrito.splice(posicion, 1);
     pintarCarritoUI(productoCarrito);
     localStorage.setItem("comprar", JSON.stringify(productoCarrito));
+    const cosmetico =JSON.parse( localStorage.getItem('cosmetico'));
+    cosmetico.cantidad=0;
+    localStorage.setItem('cosmetico',JSON.stringify (cosmetico))
 }
 
 
@@ -114,19 +114,22 @@ function pintarCarritoUI(cosmeticos) {
     $("#notificacionCarrito").html(cosmeticos.length);
     $("#productosCarrito").empty();
     for (const cosmetico of cosmeticos) {
-        $("#productosCarrito").append(`<div class="container-fluid">
+        $("#productosCarrito").append(`<div class="container-fluid carrito">
         <img src="${cosmetico.imagen}" class="imgCar" alt="">
-        <p>${cosmetico.nombre} 
+        <p>${cosmetico.nombre} </p>
+        <div class="contenedorCarrito">
         <span class="badge badge-pill badge-dark">$ ${cosmetico.precio}</span>
-        <span class="badge badge-pill badge-dark"> ${cosmetico.cantidad}</span>
         <span class="badge badge-pill badge-dark">$ ${subtotal(cosmetico)}</span>
-        <a href="" id="${cosmetico.id}" class="btn btn-secondary btn-agregar">+</a>
+        <span class="badge badge-pill badge-dark">${cosmetico.cantidad}</span>
+        <a href="" id="${cosmetico.id}" class="btn btn-secondary btn-agregar">+</a>        
         <a href="" id="${cosmetico.id}" class="btn btn-secondary btn-quitar">-</a>
-        <a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a></p></div>`);
+        <a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a>
+        </div>
+        </div>`);
     }
     $("#productosCarrito").append(`<div class="container-fluid"><a href="carrito.html" class="btn btn-primary">ver carrito</a></div>`);
-    $('btn-agregar').click(sumaCantidad);
-    $('btn-quitar').click(quitarCantidad);
+    $('.btn-agregar').click(sumaCantidad);
+    $('.btn-quitar').click(quitarCantidad);
     $('.btn-eliminar').on('click', eliminarCosmetico);
     $(".dropdown-menu").click(function(e) {
         e.stopPropagation();
@@ -144,7 +147,7 @@ function llamarCosmetico(categoria) {
         if (estado == "success") {
             let cosme = respuesta;
             for (const dato of cosme) {
-                cosmeticos.push(new Cosmetico(dato.id, dato.categoria, dato.nombre, dato.descripcion, dato.color, dato.precio, dato.imagen, 1));
+                cosmeticos.push(new Cosmetico(dato.id, dato.categoria, dato.nombre, dato.descripcion, dato.color, dato.precio, dato.imagen, 0));
             }
 
         }
@@ -154,22 +157,24 @@ function llamarCosmetico(categoria) {
     })
 }
 
-function quitarCantidad(){
+function quitarCantidad(e){
+    e.preventDefault();
     let cosmetico = productoCarrito.find(p => p.id == this.id);
     if (cosmetico.cantidad > 1){
-        cosmetico.agregarCantidad(-1);
+        cosmetico.cantidad -= 1;
         let registroUI = $(this).parent().children();
         registroUI[1].innerHTML= cosmetico.cantidad;
-        registroUI[2].innerHTML= cosmetico.subtotal();
+        registroUI[2].innerHTML= subtotal(cosmetico);
         localStorage.setItem("comprar", JSON.stringify(productoCarrito))
     }
 }
 
-function sumaCantidad(){
+function sumaCantidad(e){
+    e.preventDefault();
     let cosmetico = productoCarrito.find(p => p.id == this.id);
-    cosmetico.agregarCantidad(1);
+    cosmetico.cantidad += 1;
     let registroUI = $(this).parent().children();
     registroUI[1].innerHTML= cosmetico.cantidad;
-    registroUI[2].innerHTML= cosmetico.subtotal();
+    registroUI[2].innerHTML= subtotal(cosmetico);
     localStorage.setItem("comprar", JSON.stringify(productoCarrito))
 }

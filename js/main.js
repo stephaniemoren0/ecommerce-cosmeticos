@@ -2,15 +2,13 @@ function pintarProductosUI() {
     for (const cosmetico of cosmeticos) {
         $("#laFuncion").append(`
     <div class="col-4">
-        <div class="card">
-    <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+        <div>
+    <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor estiloImagen bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+    <hr />
             <div class="card-body">
             <h5 class="card-title">${cosmetico.nombre}</h5>
-            <p class="card-text">${cosmetico.descripcion}</p>
-            <p class="card-text">${cosmetico.color}</p>
             <h2  class="card-title"> Precio $ ${cosmetico.precio} </h2> 
             <a href="html/producto.html" id="${cosmetico.id}" class="btn btn-color btn-mostrar btn-primary">Detalles</a>
-            <a href="#" id="${cosmetico.id}" class="btn btn-color btn-primary btn-comprar">Comprar</a>
             </div>
         </div>
     </div>
@@ -47,15 +45,13 @@ function buscarProducto() {
         let nombreCosmetico = cosmetico.nombre.toLowerCase()
         if (nombreCosmetico.includes(input)) {
             $("#laFuncion").append(`<div class=" col-lg-4">
-            <div class="card">
-        <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+            <div>
+        <img src=${cosmetico.imagen} class="card-img-top trans imagenContenedor estiloImagen bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid" alt="cosmetico">
+        <hr />
                 <div class="card-body">
                 <h5 class="card-title">${cosmetico.nombre}</h5>
-                <p class="card-text">${cosmetico.descripcion}</p>
-                <p class="card-text">${cosmetico.color}</p>
                 <h2 class="card-title"> Precio $ ${cosmetico.precio} </h2> 
                 <a href="html/producto.html" id="${cosmetico.id}" class="btn btn-color btn-mostrar btn-primary">Detalles</a>
-                <a href="#" id="${cosmetico.id}" class="btn btn-color btn-primary btn-comprar">Comprar</a>
                 </div>
             </div>
         </div>
@@ -186,19 +182,22 @@ function pintarCarritoUI(cosmeticos) {
     $("#notificacionCarrito").html(cosmeticos.length);
     $("#productosCarrito").empty();
     for (const cosmetico of cosmeticos) {
-        $("#productosCarrito").append(`<div class="container-fluid">
+        $("#productosCarrito").append(`<div class="container-fluid carrito">
         <img src="${cosmetico.imagen}" class="imgCar" alt="">
-        <p>${cosmetico.nombre} 
+        <p>${cosmetico.nombre} </p>
+        <div class="contenedorCarrito">
         <span class="badge badge-pill badge-dark">$ ${cosmetico.precio}</span>
         <span class="badge badge-pill badge-dark"> ${cosmetico.cantidad}</span>
         <span class="badge badge-pill badge-dark">$ ${subtotal(cosmetico)}</span>
         <a href="" id="${cosmetico.id}" class="btn btn-secondary btn-agregar">+</a>
         <a href="" id="${cosmetico.id}" class="btn btn-secondary btn-quitar">-</a>
-        <a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a></p></div>`);
+        <a href="#" id="${cosmetico.id}" class="btn btn-danger btn-eliminar">x</a>
+        </div>
+        </div>`);
     }
-    $("#productosCarrito").append(`<div class="container-fluid"><a href="carrito.html" class="btn btn-primary">ver carrito</a></div>`);
-    $('btn-agregar').click(sumaCantidad);
-    $('btn-quitar').click(quitarCantidad);
+    $("#productosCarrito").append(`<div class="container-fluid"><a href="html/carrito.html" class="btn btn-primary">ver carrito</a></div>`);
+    $('.btn-agregar').click(sumaCantidad);
+    $('.btn-quitar').click(quitarCantidad);
     $('.btn-eliminar').on('click', eliminarCosmetico);
     $(".dropdown-menu").click(function(e) {
         e.stopPropagation();
@@ -225,10 +224,11 @@ function llamarCosmetico() {
     })
 }
 
-function quitarCantidad(){
+function quitarCantidad(e){
+    e.preventDefault();
     let cosmetico = productoCarrito.find(p => p.id == this.id);
     if (cosmetico.cantidad > 1){
-        cosmetico.agregarCantidad(-1);
+        cosmetico.cantidad -= 1;
         let registroUI = $(this).parent().children();
         registroUI[1].innerHTML= cosmetico.cantidad;
         registroUI[2].innerHTML= cosmetico.subtotal();
@@ -236,9 +236,10 @@ function quitarCantidad(){
     }
 }
 
-function sumaCantidad(){
+function sumaCantidad(e){
+    e.preventDefault();
     let cosmetico = productoCarrito.find(p => p.id == this.id);
-    cosmetico.agregarCantidad(1);
+    cosmetico.cantidad += 1;
     let registroUI = $(this).parent().children();
     registroUI[1].innerHTML= cosmetico.cantidad;
     registroUI[2].innerHTML= cosmetico.subtotal();

@@ -5,7 +5,7 @@ class Cosmetico {
         this.descripcion = descripcion;
         this.imagen = imagen;
         this.color = color;
-        this.precio = parseFloat(precio);
+        this.precio = parseInt(precio);
         this.categoria = parseInt(categoria);
         this.cantidad= parseInt(cantidad);
     }
