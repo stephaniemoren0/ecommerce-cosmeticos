@@ -231,7 +231,7 @@ function quitarCantidad(e){
         cosmetico.cantidad -= 1;
         let registroUI = $(this).parent().children();
         registroUI[1].innerHTML= cosmetico.cantidad;
-        registroUI[2].innerHTML= cosmetico.subtotal();
+        registroUI[2].innerHTML= subtotal(cosmetico);
         localStorage.setItem("comprar", JSON.stringify(productoCarrito))
     }
 }
@@ -242,6 +242,6 @@ function sumaCantidad(e){
     cosmetico.cantidad += 1;
     let registroUI = $(this).parent().children();
     registroUI[1].innerHTML= cosmetico.cantidad;
-    registroUI[2].innerHTML= cosmetico.subtotal();
+    registroUI[2].innerHTML= subtotal(cosmetico);
     localStorage.setItem("comprar", JSON.stringify(productoCarrito))
 }

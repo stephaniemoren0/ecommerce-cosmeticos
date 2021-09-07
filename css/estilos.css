@@ -81,18 +81,40 @@ h2 {
     margin-bottom: 5px;
 }
 
-.contenedorMostrar{
-    display: inline-block;
-    margin-top: 80px;
-}
-
 .contenedorArticulos{
-    display: inline-;
-    margin-left: 20px;
+    display: block;
+    margin-bottom: 20px;
 }
 
-.contenedorPago{
-    display: inline;
+.bordeCantidad{
+    border: 1px solid rgba(0,0,0,0.19);
+border-radius: 5px;
+width: 50px;
+}
+
+.bordeBoton{
+    display: inline-flexbox;
+    border: 1px solid rgba(0,0,0,0.19);
+border-radius: 5px;
+}
+
+.textoDentro{
+    display: inline-flexbox;
+    text-align: center;
+    width: 50px;
+    margin: none;
+}
+
+.elDetalle{
+-webkit-column-count: 2;
+-moz-column-count: 2;
+column-count: 2;
+-webkit-column-gap: 50px;
+-moz-column-gap: 50px;
+column-gap: 50px;
+-webkit-column-rule: 1px solid transparent;
+-moz-column-rule: 1px solid transparent;
+column-rule: 1px solid transparent;
 }
 
 
@@ -148,6 +170,23 @@ h2 {
 .contenedorDetalles{
     margin: 20px;
 }
+
+.contenedorCade{
+    margin-top: 80px;
+    
+}
+
+#carritoDetalle {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    -webkit-column-gap: 30%px;
+    -moz-column-gap: 70%;
+    column-gap: 100px;
+    -webkit-column-rule: 1px solid rgba(0, 0, 0, 0.055);
+    -moz-column-rule: 1px solid rgba(0, 0, 0, 0.062);
+    column-rule: 1px solid rgba(0, 0, 0, 0.151);
+    }
 
 .estiloImagen{
     -webkit-box-shadow: 2px 5px 16px 0px #0000000a, 2px 2px 50px 0px rgba(0, 0, 0, 0.027); 
